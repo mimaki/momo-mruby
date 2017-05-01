@@ -1,0 +1,15 @@
+.git/
+*.o
+*.d
+*.a
+.DS_Store
+
+# mbed
+*.pyc
+BUILD/
+
+# mruby
+build/
+
+# application
+app.c

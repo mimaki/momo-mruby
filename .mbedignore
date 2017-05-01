@@ -1,0 +1,29 @@
+mruby/benchmark/
+mruby/bin/
+
+mruby/build/bench/
+mruby/build/host/
+mruby/build/host-debug/
+mruby/build/test/
+
+mruby/build/mbed/bin/
+mruby/build/mbed/lib/
+mruby/build/mbed/mrbgems/*.o
+mruby/build/mbed/mrbgems/*/*.o
+mruby/build/mbed/mrbgems/*/*/*.o
+mruby/build/mbed/mrblib/*.o
+mruby/build/mbed/src/*.o
+
+mruby/doc/
+mruby/examples/
+# mruby/include/
+mruby/lib/
+
+mruby/mrbgems/mruby-bin-*/
+mruby/mrbgems/mruby-exit/
+mruby/mrbgems/mruby-test/
+
+mruby/mrblib/
+# mruby/src/
+mruby/tasks/
+mruby/test/
