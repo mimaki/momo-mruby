@@ -3,17 +3,25 @@ TEST  = './mrbgems/'
 
 MRuby::GemBox.new do |conf|
   conf.gem PLATO + 'mruby-plato-machine'
+  conf.gem TEST  + 'mruby-plato-machine-mbed'
 
   conf.gem PLATO + 'mruby-plato-gpio'
-
   conf.gem TEST  + 'mruby-plato-gpio-mbed'
 
   conf.gem PLATO + 'mruby-plato-digitalio'
-
   conf.gem TEST  + 'mruby-plato-digitalio-mbed'
 
   conf.gem PLATO + 'mruby-plato-led'
 
   conf.gem PLATO + 'mruby-plato-buttonswitch'
+
+  conf.gem PLATO + 'mruby-plato-i2c'
+
+  conf.gem TEST  + 'mruby-plato-i2c-mbed'
+
+  conf.gem PLATO + 'mruby-plato-sensor'
+  conf.gem PLATO + 'mruby-plato-sensor-hdc1080'
+  conf.gem PLATO + 'mruby-plato-sensor-tsl2591'
+  conf.gem PLATO + 'mruby-plato-lcd-aqm0802a'
 
 end
