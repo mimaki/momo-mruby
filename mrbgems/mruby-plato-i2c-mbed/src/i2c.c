@@ -28,12 +28,13 @@ static mrb_value
 mrb_i2c_read(mrb_state *mrb, mrb_value self)
 {
   int i;
-  mrb_int reg, len, wait;
+  mrb_int reg, len;
   uint8_t *buf;
   mrb_value v, vaddr, vwait;
   mrb_sym type = mrb_intern_lit(mrb, "as_array");
 #ifndef NO_MBED
   char creg;
+  mrb_int wait;
 #endif
 
   if (mrb_bool(mrb_iv_get(mrb, self, mrb_intern_lit(mrb, "@closed")))) {
@@ -84,7 +85,8 @@ mrb_i2c_read(mrb_state *mrb, mrb_value self)
 static mrb_value
 mrb_i2c_write(mrb_state *mrb, mrb_value self)
 {
-  mrb_int reg, rep=FALSE;
+  mrb_int reg;
+  mrb_bool rep = FALSE;
   mrb_value data, v, vaddr;
   uint8_t *buf;
   size_t len;
@@ -95,7 +97,7 @@ mrb_i2c_write(mrb_state *mrb, mrb_value self)
   }
   vaddr = mrb_iv_get(mrb, self, mrb_intern_lit(mrb, "@addr"));
 
-  mrb_get_args(mrb, "io|i", &reg, &data, &rep);
+  mrb_get_args(mrb, "io|b", &reg, &data, &rep);
 
   if (mrb_string_p(data)) {
     len = RSTRING_LEN(data);
@@ -127,7 +129,7 @@ mrb_i2c_write(mrb_state *mrb, mrb_value self)
 
 #ifndef NO_MBED
   /* write data to I2C */
-  i2cWrite(mrb_fixnum(vaddr), (const char*)buf, len + 1, rep);
+  i2cWrite(mrb_fixnum(vaddr), (const char*)buf, len + 1, (uint8_t)rep);
 #endif
 
   mrb_free(mrb, buf);
@@ -153,55 +155,17 @@ mrb_i2c_end(mrb_state *mrb, mrb_value self)
   return mrb_nil_value();
 }
 
-// static mrb_value
-// mrb_i2c_read_raw(mrb_state *mrb, mrb_value self)
-// {
-//   mrb_int ack, val = 0;
-// #ifndef NO_MBED
-//   char creg;
-// #endif
-
-//   mrb_get_args(mrb, "i", &ack);
-
-// #ifdef NO_MBED
-// #else /* MBED */
-//   /* read data from I2C */
-//   val = i2cReadRaw(ack);
-// #endif 
-
-//   return mrb_fixnum_value(val);
-// }
-
-// static mrb_value
-// mrb_i2c_write_raw(mrb_state *mrb, mrb_value self)
-// {
-//   mrb_int data, ack = 0;
-
-//   mrb_get_args(mrb, "i", &data);
-
-// #ifndef NO_MBED
-//   /* write data to I2C */
-//   ack = i2cWriteRaw(data);
-// #endif
-
-//   return mrb_fixnum_value(ack);
-// }
-
 void
 mrb_mruby_plato_i2c_mbed_gem_init(mrb_state *mrb)
 {
   struct RClass *mbed = mrb_define_module(mrb, "PlatoMbed");
   struct RClass *i2c  = mrb_define_class_under(mrb, mbed, "I2C", mrb->object_class);
-  MRB_SET_INSTANCE_TT(i2c, MRB_TT_DATA);
 
   mrb_define_method(mrb, i2c, "initialize", mrb_i2c_init,     MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, i2c, "read",       mrb_i2c_read,     MRB_ARGS_ARG(2, 1));
   mrb_define_method(mrb, i2c, "write",      mrb_i2c_write,    MRB_ARGS_ARG(2, 1));
-// for test
   mrb_define_method(mrb, i2c, "_start",     mrb_i2c_start,    MRB_ARGS_NONE());
   mrb_define_method(mrb, i2c, "_end",       mrb_i2c_end,      MRB_ARGS_NONE());
-  // mrb_define_method(mrb, i2c, "_read",      mrb_i2c_read_raw, MRB_ARGS_REQ(1));
-  // mrb_define_method(mrb, i2c, "_write",     mrb_i2c_write_raw,MRB_ARGS_REQ(1));
 }
 
 void
