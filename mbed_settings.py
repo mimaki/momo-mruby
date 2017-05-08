@@ -39,7 +39,7 @@ from os.path import join, abspath, dirname
 # Goanna static analyser. Please overload it in private_settings.py
 #GOANNA_PATH = "c:/Program Files (x86)/RedLizards/Goanna Central 3.2.3/bin"
 
-BUILD_OPTIONS = ['-DMBED']
+#BUILD_OPTIONS = []
 
 # mbed.org username
 #MBED_ORG_USER = ""

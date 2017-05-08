@@ -24,9 +24,10 @@ mrb_dio_read(mrb_state *mrb, mrb_value self)
   vpin = mrb_iv_get(mrb, self, mrb_intern_lit(mrb, "@pin"));
   pin = mrb_fixnum(vpin);
 
-  // TODO: read data from digital pin
-  // v = digital_read(pin);
+#ifndef NO_MBED
+  /* read data from digital pin */
   v = digitalRead(pin);
+#endif
 
   return mrb_fixnum_value(v);
 }
@@ -42,9 +43,10 @@ mrb_dio_write(mrb_state *mrb, mrb_value self)
   vpin = mrb_iv_get(mrb, self, mrb_intern_lit(mrb, "@pin"));
   pin = mrb_fixnum(vpin);
 
-  // TODO: write data to digital pin
-  // write(pin, v);
+#ifndef NO_MBED
+  /* write data to digital pin */
   digitalWrite(pin, v);
+#endif
 
   return mrb_nil_value();
 }

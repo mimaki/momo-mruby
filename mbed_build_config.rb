@@ -117,11 +117,18 @@ MRuby::Build.new('test') do |conf|
     toolchain :gcc
   end
 
+  conf.cc {|cc|
+    cc.include_paths << %w(..)
+    cc.defines << 'NO_MBED'
+  }
+
   enable_debug
   conf.enable_bintest
   conf.enable_test
 
-  conf.gembox 'default'
+  conf.gembox '../../mbed'
+  conf.gembox '../../plato'
+  conf.gem '~/plato/mrbgems/mruby-plato-machine-sim'
 end
 
 MRuby::Build.new('bench') do |conf|
@@ -169,8 +176,6 @@ MRuby::CrossBuild.new('mbed') do |conf|
     cc.include_paths << [
       "#{root}/.."
     ]
-    cc.defines << 'MBED1'
-
     # cc.option_include_path = "-I #{root}/../mbed-os"
     # cc.option_define = '-DMBED2'
   }

@@ -48,14 +48,11 @@
 #include <mruby/compile.h>
 #include <mruby/_string.h>
 
-#ifdef MBED
-  // #include "vcp.h"
-  // extern int MBED_printf(const char*, ...);
-  // extern int MBED_getch(void);
+#ifndef NO_MBED
   #include "mbedapi.h"
   #define PRINTF  MBED_printf
   #define GETCHAR MBED_getc
-#else
+#else /* MBED */
   #define PRINTF(...) fprintf(stdout, __VA_ARGS__)
   #define GETCHAR     getchar
 #endif

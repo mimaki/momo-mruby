@@ -4,6 +4,7 @@
 #include "mruby/_string.h"
 #include "mbedapi.h"
 
+// for test
 DigitalOut ledr(LED1);
 DigitalOut ledg(LED2);
 DigitalOut ledb(LED3);
