@@ -3,7 +3,7 @@ TEST  = './mrbgems/'
 
 MRuby::GemBox.new do |conf|
   conf.gem PLATO + 'mruby-plato-machine'
-  conf.gem TEST  + 'mruby-plato-machine-mbed'
+  conf.gem TEST  + 'mruby-plato-machine-grpeach'
 
   conf.gem PLATO + 'mruby-plato-gpio'
   conf.gem TEST  + 'mruby-plato-gpio-mbed'
@@ -15,8 +15,10 @@ MRuby::GemBox.new do |conf|
 
   conf.gem PLATO + 'mruby-plato-buttonswitch'
 
-  conf.gem PLATO + 'mruby-plato-i2c'
+  # conf.gem PLATO + 'mruby-plato-serial'
+  # conf.gem TEST  + 'mruby-plato-serial-grpeach'
 
+  conf.gem PLATO + 'mruby-plato-i2c'
   conf.gem TEST  + 'mruby-plato-i2c-mbed'
 
   conf.gem PLATO + 'mruby-plato-sensor'
@@ -24,4 +26,6 @@ MRuby::GemBox.new do |conf|
   conf.gem PLATO + 'mruby-plato-sensor-tsl2591'
   conf.gem PLATO + 'mruby-plato-lcd-aqm0802a'
 
+  # conf.gem PLATO + 'mruby-plato-zigbee'
+  # conf.gem PLATO + 'mruby-plato-zigbee-xbee'
 end

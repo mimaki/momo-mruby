@@ -62,10 +62,10 @@ mrb_millis(mrb_state *mrb, mrb_value self)
 // }
 
 void
-mrb_mruby_plato_machine_mbed_gem_init(mrb_state *mrb)
+mrb_mruby_plato_machine_grpeach_gem_init(mrb_state *mrb)
 {
-  struct RClass *qsip = mrb_define_module(mrb, "PlatoMbed");
-  struct RClass *mach = mrb_define_class_under(mrb, qsip, "Machine", mrb->object_class);
+  struct RClass *mod = mrb_define_module(mrb, "PlatoPeach");
+  struct RClass *mach = mrb_define_class_under(mrb, mod, "Machine", mrb->object_class);
 
 #ifndef NO_MBED
   /* start tick count */
@@ -79,6 +79,6 @@ mrb_mruby_plato_machine_mbed_gem_init(mrb_state *mrb)
 }
 
 void
-mrb_mruby_plato_machine_mbed_gem_final(mrb_state *mrb)
+mrb_mruby_plato_machine_grpeach_gem_final(mrb_state *mrb)
 {
 }

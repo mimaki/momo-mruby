@@ -1,5 +1,5 @@
-# mruby-plato-machine-mbed   [![Build Status](https://travis-ci.org/mruby-plato/mruby-plato-machine-mbed.svg?branch=master)](https://travis-ci.org/mruby-plato/mruby-plato-machine-mbed)
-PlatoMbed::Machine class for mbed board
+# mruby-plato-machine-grpeach   [![Build Status](https://travis-ci.org/mruby-plato/mruby-plato-machine-grpeach.svg?branch=master)](https://travis-ci.org/mruby-plato/mruby-plato-machine-grpeach)
+PlatoPeach::Machine class for GR-PEACH board
 ## install by mrbgems
 - add conf.gem line to `build_config.rb`
 
@@ -9,7 +9,7 @@ MRuby::Build.new do |conf|
   # ... (snip) ...
 
   conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-machine'
-  conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-machine-mbed'
+  conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-machine-grpeach'
 end
 ```
 
