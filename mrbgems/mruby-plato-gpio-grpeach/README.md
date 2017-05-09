@@ -1,5 +1,5 @@
-# mruby-plato-GPIO-mbed   [![Build Status](https://travis-ci.org/mruby-plato/mruby-plato-gpio-mbed.svg?branch=master)](https://travis-ci.org/mruby-plato/mruby-plato-gpio-mbed)
-Plato::GPIO class for mbed board
+# mruby-plato-GPIO-grpeach   [![Build Status](https://travis-ci.org/mruby-plato/mruby-plato-gpio-grpeach.svg?branch=master)](https://travis-ci.org/mruby-plato/mruby-plato-gpio-grpeach)
+Plato::GPIO class for GR-PEACH board
 ## install by mrbgems
 - add conf.gem line to `build_config.rb`
 
@@ -9,7 +9,7 @@ MRuby::Build.new do |conf|
   # ... (snip) ...
 
   conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-gpio'
-  conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-gpio-mbed'
+  conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-gpio-grpeach'
 end
 ```
 

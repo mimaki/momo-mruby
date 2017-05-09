@@ -12,7 +12,7 @@ static const char *pinname[] = {
 #define MBED_GPIO_PINS (sizeof(pinname)/sizeof(pinname[0]))
 
 void
-mrb_mruby_plato_gpio_mbed_gem_init(mrb_state *mrb)
+mrb_mruby_plato_gpio_grpeach_gem_init(mrb_state *mrb)
 {
   mrb_int i;
   struct RClass *plato  = mrb_module_get(mrb, "Plato");
@@ -24,6 +24,6 @@ mrb_mruby_plato_gpio_mbed_gem_init(mrb_state *mrb)
 }
 
 void
-mrb_mruby_plato_gpio_mbed_gem_final(mrb_state *mrb)
+mrb_mruby_plato_gpio_grpeach_gem_final(mrb_state *mrb)
 {
 }

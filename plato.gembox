@@ -6,7 +6,7 @@ MRuby::GemBox.new do |conf|
   conf.gem TEST  + 'mruby-plato-machine-grpeach'
 
   conf.gem PLATO + 'mruby-plato-gpio'
-  conf.gem TEST  + 'mruby-plato-gpio-mbed'
+  conf.gem TEST  + 'mruby-plato-gpio-grpeach'
 
   conf.gem PLATO + 'mruby-plato-digitalio'
   conf.gem TEST  + 'mruby-plato-digitalio-grpeach'
