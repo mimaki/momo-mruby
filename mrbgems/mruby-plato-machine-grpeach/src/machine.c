@@ -16,7 +16,7 @@ mrb_delay(mrb_state *mrb, mrb_value self)
   // wait for ms milliseconds
 #ifdef NO_MBED
 #else /* mbed */
-  MBED_wait_ms(ms);
+  mbedDelay(ms);
 #endif
 	
   return mrb_nil_value();
@@ -31,7 +31,7 @@ mrb_delay_us(mrb_state *mrb, mrb_value self)
   // wait for us microseconds
 #ifdef NO_MBED
 #else /* mbed */
-  MBED_wait_us(us);
+  mbedDelay_us(us);
 #endif
 
   return mrb_nil_value();
@@ -45,7 +45,7 @@ mrb_millis(mrb_state *mrb, mrb_value self)
   // get tick-count (milliseconds)
 #ifdef NO_MBED
 #else /* MBED */
-  ms = (mrb_int)MBED_millis();
+  ms = (mrb_int)mbedMillis();
 #endif
 
   return mrb_fixnum_value(ms);
@@ -69,7 +69,7 @@ mrb_mruby_plato_machine_grpeach_gem_init(mrb_state *mrb)
 
 #ifndef NO_MBED
   /* start tick count */
-  MBED_start_ticker();
+  mbedStartTicker();
 #endif
 
   mrb_define_class_method(mrb, mach, "delay",     mrb_delay,    MRB_ARGS_REQ(1));

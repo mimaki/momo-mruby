@@ -6,7 +6,7 @@
 static Serial vcp(USBTX, USBRX);
 
 MBEDAPI int
-MBED_printf(const char *format, ...)
+mbedPrintf(const char *format, ...)
 {
   va_list args;
   int len;
@@ -19,13 +19,13 @@ MBED_printf(const char *format, ...)
 }
 
 MBEDAPI void
-MBED_putc(char c)
+mbedPutc(char c)
 {
   vcp.putc(c);
 }
 
 MBEDAPI int
-MBED_getc(void)
+mbedGetc(void)
 {
   return vcp.getc();
 }

@@ -17,13 +17,13 @@ int main(void)
   mrb_value v, s;
   mrb_state *mrb = mrb_open();
 
-  MBED_printf("Hello, mbed!\n");
+  mbedPrintf("Hello, mbed!\n");
 
   ledr = 1;
   v = mrb_load_irep(mrb, appbin);
   s = mrb_obj_as_string(mrb, v);
-  MBED_printf(mrb_str_to_cstr(mrb, s));
-  MBED_printf("\n");
+  mbedPrintf(mrb_str_to_cstr(mrb, s));
+  mbedPrintf("\n");
   ledg = 1;
 
   wait(1);
@@ -32,7 +32,7 @@ int main(void)
 
   mirb(mrb);
 
-  MBED_printf("mirb done.\n");
+  mbedPrintf("mirb done.\n");
 
   while (1) {
       ledb = !ledb;

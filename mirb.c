@@ -50,8 +50,8 @@
 
 #ifndef NO_MBED
   #include "mbedapi.h"
-  #define PRINTF  MBED_printf
-  #define GETCHAR MBED_getc
+  #define PRINTF  mbedPrintf
+  #define GETCHAR mbedGetc
 #else /* MBED */
   #define PRINTF(...) fprintf(stdout, __VA_ARGS__)
   #define GETCHAR     getchar

@@ -12,7 +12,7 @@
 #endif
 #endif
 
-extern int MBED_putc(char);
+extern int mbedPutc(char);
 
 static void
 printstr(mrb_state *mrb, mrb_value obj)
@@ -39,7 +39,7 @@ printstr(mrb_state *mrb, mrb_value obj)
       int i;
       char *p = RSTRING_PTR(obj);
       for (i=0; i<RSTRING_LEN(obj); i++,p++) {
-        MBED_putc(*p);
+        mbedPutc(*p);
       }
     }
 #else

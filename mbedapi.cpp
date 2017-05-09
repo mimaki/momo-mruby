@@ -13,18 +13,17 @@ static const PinName _pins[] = {
 static volatile long _tick = 0L;
 static Ticker _ticker;
 
-static I2C _i2c(I2C_SDA, I2C_SCL);
-
+static I2C _i2c(I2C_SDA, I2C_SCL);  // TODO: Change to CV
 
 /* Time functions */
 MBEDAPI void
-MBED_wait_ms(int ms)
+mbedDelay(int ms)
 {
   wait_ms(ms);
 }
 
 MBEDAPI void
-MBED_wait_us(int us)
+mbedDelay_us(int us)
 {
   wait_us(us);
 }
@@ -36,13 +35,13 @@ tick_handler(void)
 }
 
 MBEDAPI void
-MBED_start_ticker(void)
+mbedStartTicker(void)
 {
   _ticker.attach(&tick_handler, 0.001);
 }
 
 MBEDAPI long
-MBED_millis(void)
+mbedMillis(void)
 {
   return (long)_tick;
 }
@@ -50,9 +49,9 @@ MBED_millis(void)
 /* Digital IO functions */
 
 MBEDAPI void
-digitalWrite(int pin, int value)
+mbedDigitalWrite(int pin, int value)
 {
-  if (pin < 0 || pin >= MBED_GPIO_PINS) {
+  if (pin < 0 || pin >= (int)MBED_GPIO_PINS) {
     return;
   }
   DigitalOut io(_pins[pin]);
@@ -60,10 +59,10 @@ digitalWrite(int pin, int value)
 }
 
 MBEDAPI int
-digitalRead(int pin)
+mbedDigitalRead(int pin)
 {
   int v = 0;
-  if (pin < 0 || pin >= MBED_GPIO_PINS) {
+  if (pin < 0 || pin >= (int)MBED_GPIO_PINS) {
     return 0;
   }
   DigitalIn io(_pins[pin]);
@@ -74,37 +73,87 @@ digitalRead(int pin)
 /* I2C functions */
 
 MBEDAPI int
-i2cWrite(int addr, const char *cmd, int length, uint8_t repeat)
+mbedI2CWrite(int addr, const char *cmd, int length, uint8_t repeat)
 {
   return _i2c.write(addr, cmd, length, (bool)repeat);
 }
 
 MBEDAPI int
-i2cRead(int addr, char *data, int length)
+mbedI2CRead(int addr, char *data, int length)
 {
   return _i2c.read(addr, data, length);
 }
 
 MBEDAPI void
-i2cStart(void)
+mbedI2CStart(void)
 {
   _i2c.start();
 }
 
 MBEDAPI void
-i2cEnd(void)
+mbedI2CStop(void)
 {
   _i2c.stop();
 }
 
-// MBEDAPI int
-// i2cWriteRaw(int data)
-// {
-//   return _i2c.write(data);
-// }
+/* Serial(UART) functions */
+MBEDAPI void*
+mbedSerialInit(int baud, int dbits, int start, int stop, int par)
+{
+  SerialBase::Parity parity;
+  Serial *ser = new Serial(D1, D0, baud);
+  if (ser) {
+    switch(par) {
+      case MBED_SERIAL_PARITY_ODD:
+        parity = SerialBase::Odd;
+        break;
+      case MBED_SERIAL_PARITY_EVEN:
+        parity = SerialBase::Even;
+        break;
+      default:
+      case MBED_SERIAL_PARITY_NONE:
+        parity = SerialBase::None;
+        break;
+    }
+    ser->format(dbits, parity, stop);
+  }
+  return ser;
+}
 
-// MBEDAPI int
-// i2cReadRaw(int ack)
-// {
-//   return _i2c.read(ack);
-// }
+MBEDAPI int
+mbedSerialRawRead(void *s)
+{
+  Serial *ser = (Serial*)s;
+  if (ser->readable() == 0) {
+    return -1;
+  }
+  return ser->getc();
+}
+
+MBEDAPI int
+mbedSerialRawWrite(void *s, int c)
+{
+  Serial *ser = (Serial*)s;
+  return ser->putc(c);
+}
+
+MBEDAPI int
+mbedSerialAvailable(void *s)
+{
+  Serial *ser = (Serial*)s;
+  return ser->readable();
+}
+
+MBEDAPI int
+mbedSerialFlush(void *s)
+{
+  return 0;
+}
+
+MBEDAPI int
+mbedSerialClose(void *s)
+{
+  Serial *ser = (Serial*)s;
+  delete ser;
+  return 0;
+}

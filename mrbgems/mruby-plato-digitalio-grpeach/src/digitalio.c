@@ -26,7 +26,7 @@ mrb_dio_read(mrb_state *mrb, mrb_value self)
 
 #ifndef NO_MBED
   /* read data from digital pin */
-  v = digitalRead(pin);
+  v = mbedDigitalRead(pin);
 #endif
 
   return mrb_fixnum_value(v);
@@ -45,7 +45,7 @@ mrb_dio_write(mrb_state *mrb, mrb_value self)
 
 #ifndef NO_MBED
   /* write data to digital pin */
-  digitalWrite(pin, v);
+  mbedDigitalWrite(pin, v);
 #endif
 
   return mrb_nil_value();

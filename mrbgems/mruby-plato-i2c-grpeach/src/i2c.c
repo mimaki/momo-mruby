@@ -52,15 +52,15 @@ mrb_i2c_read(mrb_state *mrb, mrb_value self)
 #else /* MBED */
   /* write register */
   creg = (char)reg;
-  i2cWrite(mrb_fixnum(vaddr), &creg, 1, FALSE);
-  wait = MBED_millis() + mrb_fixnum(vwait);
-  while (wait > MBED_millis()) {
+  mbedI2CWrite(mrb_fixnum(vaddr), &creg, 1, FALSE);
+  wait = mbedMillis() + mrb_fixnum(vwait);
+  while (wait > mbedMillis()) {
     /* read data from I2C */
-    if (i2cRead(mrb_fixnum(vaddr), (char*)buf, len) == 0) {
+    if (mbedI2CRead(mrb_fixnum(vaddr), (char*)buf, len) == 0) {
       break;  /* ACK */
     }
     /* wait ack condition */
-    MBED_wait_ms(1);
+    mbedDelay(1);
   }
 #endif
 
@@ -129,7 +129,7 @@ mrb_i2c_write(mrb_state *mrb, mrb_value self)
 
 #ifndef NO_MBED
   /* write data to I2C */
-  i2cWrite(mrb_fixnum(vaddr), (const char*)buf, len + 1, (uint8_t)rep);
+  mbedI2CWrite(mrb_fixnum(vaddr), (const char*)buf, len + 1, (uint8_t)rep);
 #endif
 
   mrb_free(mrb, buf);
@@ -141,7 +141,7 @@ static mrb_value
 mrb_i2c_start(mrb_state *mrb, mrb_value self)
 {
 #ifndef NO_MBED
-  i2cStart();
+  mbedI2CStart();
 #endif
   return mrb_nil_value();
 }
@@ -150,7 +150,7 @@ static mrb_value
 mrb_i2c_end(mrb_state *mrb, mrb_value self)
 {
 #ifndef NO_MBED
-  i2cEnd();
+  mbedI2CStop();
 #endif
   return mrb_nil_value();
 }
