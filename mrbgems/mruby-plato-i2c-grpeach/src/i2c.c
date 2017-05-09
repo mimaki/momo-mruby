@@ -156,10 +156,10 @@ mrb_i2c_end(mrb_state *mrb, mrb_value self)
 }
 
 void
-mrb_mruby_plato_i2c_mbed_gem_init(mrb_state *mrb)
+mrb_mruby_plato_i2c_grpeach_gem_init(mrb_state *mrb)
 {
-  struct RClass *mbed = mrb_define_module(mrb, "PlatoMbed");
-  struct RClass *i2c  = mrb_define_class_under(mrb, mbed, "I2C", mrb->object_class);
+  struct RClass *mod  = mrb_define_module(mrb, "PlatoPeach");
+  struct RClass *i2c  = mrb_define_class_under(mrb, mod, "I2C", mrb->object_class);
 
   mrb_define_method(mrb, i2c, "initialize", mrb_i2c_init,     MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, i2c, "read",       mrb_i2c_read,     MRB_ARGS_ARG(2, 1));
@@ -169,6 +169,6 @@ mrb_mruby_plato_i2c_mbed_gem_init(mrb_state *mrb)
 }
 
 void
-mrb_mruby_plato_i2c_mbed_gem_final(mrb_state *mrb)
+mrb_mruby_plato_i2c_grpeach_gem_final(mrb_state *mrb)
 {
 }

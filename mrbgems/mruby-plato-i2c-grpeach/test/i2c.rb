@@ -1,16 +1,16 @@
-# PlatoMbed::I2C class
+# PlatoPeach::I2C class
 
 assert('I2C', 'class') do
-  assert_equal(PlatoMbed::I2C.class, Class)
+  assert_equal(PlatoPeach::I2C.class, Class)
 end
 
 assert('I2C', 'superclass') do
-  assert_equal(PlatoMbed::I2C.superclass, Object)
+  assert_equal(PlatoPeach::I2C.superclass, Object)
 end
 
 assert('I2C', 'new') do
-  i1 = PlatoMbed::I2C.new(1)
-  i2 = PlatoMbed::I2C.new(2, 3)
+  i1 = PlatoPeach::I2C.new(1)
+  i2 = PlatoPeach::I2C.new(2, 3)
   assert_true(i1 && i2)
   assert_equal(i1.instance_variable_get("@addr"), 1 << 1)
   assert_equal(i1.instance_variable_get("@wait"), 1000)
@@ -19,12 +19,12 @@ assert('I2C', 'new') do
 end
 
 assert('I2C', 'new - argument error') do
-  assert_raise(ArgumentError) {PlatoMbed::I2C.new}
-  assert_raise(ArgumentError) {PlatoMbed::I2C.new(0, 1, 2)}
+  assert_raise(ArgumentError) {PlatoPeach::I2C.new}
+  assert_raise(ArgumentError) {PlatoPeach::I2C.new(0, 1, 2)}
 end
 
 assert('I2C', 'oepn - Plato::I2C') do
-  Plato::I2C.register_device(PlatoMbed::I2C)
+  Plato::I2C.register_device(PlatoPeach::I2C)
   Plato::I2C.open(0)
 end
 
