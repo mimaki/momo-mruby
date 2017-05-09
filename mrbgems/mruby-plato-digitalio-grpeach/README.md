@@ -1,5 +1,5 @@
-# mruby-plato-digitalio-mbed   [![Build Status](https://travis-ci.org/mruby-plato/mruby-plato-digitalio-mbed.svg?branch=master)](https://travis-ci.org/mruby-plato/mruby-plato-digitalio-mbed)
-Plato::DigitalIO class for mbed board
+# mruby-plato-digitalio-grpeach   [![Build Status](https://travis-ci.org/mruby-plato/mruby-plato-digitalio-grpeach.svg?branch=master)](https://travis-ci.org/mruby-plato/mruby-plato-digitalio-grpeach)
+Plato::DigitalIO class for GR-PEACH board
 ## install by mrbgems
 - add conf.gem line to `build_config.rb`
 
@@ -9,7 +9,7 @@ MRuby::Build.new do |conf|
   # ... (snip) ...
 
   conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-gpio'
-  conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-digitalio-mbed'
+  conf.gem :git => 'https://github.com/mruby-plato/mruby-plato-digitalio-grpeach'
 end
 ```
 

@@ -52,7 +52,7 @@ mrb_dio_write(mrb_state *mrb, mrb_value self)
 }
 
 void
-mrb_mruby_plato_digitalio_mbed_gem_init(mrb_state *mrb)
+mrb_mruby_plato_digitalio_grpeach_gem_init(mrb_state *mrb)
 {
   struct RClass *plato  = mrb_module_get(mrb, "Plato");
   struct RClass *gpio   = mrb_class_get_under(mrb, plato, "GPIO");
@@ -64,6 +64,6 @@ mrb_mruby_plato_digitalio_mbed_gem_init(mrb_state *mrb)
 }
 
 void
-mrb_mruby_plato_digitalio_mbed_gem_final(mrb_state *mrb)
+mrb_mruby_plato_digitalio_grpeach_gem_final(mrb_state *mrb)
 {
 }

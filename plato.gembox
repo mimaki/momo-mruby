@@ -9,7 +9,7 @@ MRuby::GemBox.new do |conf|
   conf.gem TEST  + 'mruby-plato-gpio-mbed'
 
   conf.gem PLATO + 'mruby-plato-digitalio'
-  conf.gem TEST  + 'mruby-plato-digitalio-mbed'
+  conf.gem TEST  + 'mruby-plato-digitalio-grpeach'
 
   conf.gem PLATO + 'mruby-plato-led'
 
