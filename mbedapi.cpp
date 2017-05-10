@@ -101,7 +101,7 @@ MBEDAPI void*
 mbedSerialInit(int baud, int dbits, int start, int stop, int par)
 {
   SerialBase::Parity parity;
-  Serial *ser = new Serial(D1, D0, baud);
+  RawSerial *ser = new RawSerial(D1, D0, baud);
   if (ser) {
     switch(par) {
       case MBED_SERIAL_PARITY_ODD:
@@ -123,7 +123,7 @@ mbedSerialInit(int baud, int dbits, int start, int stop, int par)
 MBEDAPI int
 mbedSerialRawRead(void *s)
 {
-  Serial *ser = (Serial*)s;
+  RawSerial *ser = (RawSerial*)s;
   if (ser->readable() == 0) {
     return -1;
   }
@@ -133,14 +133,23 @@ mbedSerialRawRead(void *s)
 MBEDAPI int
 mbedSerialRawWrite(void *s, int c)
 {
-  Serial *ser = (Serial*)s;
+  RawSerial *ser = (RawSerial*)s;
+  int retry;
+  for (retry=0; retry<1000; retry++) {
+    if (ser->writeable()) break;
+    mbedDelay(1);
+  }
+  if (retry == 1000) {
+mbedPrintf("Serial#_write retry over!\n");
+    return -1;
+  }
   return ser->putc(c);
 }
 
 MBEDAPI int
 mbedSerialAvailable(void *s)
 {
-  Serial *ser = (Serial*)s;
+  RawSerial *ser = (RawSerial*)s;
   return ser->readable();
 }
 
@@ -153,7 +162,7 @@ mbedSerialFlush(void *s)
 MBEDAPI int
 mbedSerialClose(void *s)
 {
-  Serial *ser = (Serial*)s;
+  RawSerial *ser = (RawSerial*)s;
   delete ser;
   return 0;
 }

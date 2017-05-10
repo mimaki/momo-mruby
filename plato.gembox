@@ -15,8 +15,8 @@ MRuby::GemBox.new do |conf|
 
   conf.gem PLATO + 'mruby-plato-buttonswitch'
 
-  # conf.gem PLATO + 'mruby-plato-serial'
-  # conf.gem TEST  + 'mruby-plato-serial-grpeach'
+  conf.gem PLATO + 'mruby-plato-serial'
+  conf.gem TEST  + 'mruby-plato-serial-grpeach'
 
   conf.gem PLATO + 'mruby-plato-i2c'
   conf.gem TEST  + 'mruby-plato-i2c-grpeach'
@@ -26,6 +26,9 @@ MRuby::GemBox.new do |conf|
   conf.gem PLATO + 'mruby-plato-sensor-tsl2591'
   conf.gem PLATO + 'mruby-plato-lcd-aqm0802a'
 
-  # conf.gem PLATO + 'mruby-plato-zigbee'
-  # conf.gem PLATO + 'mruby-plato-zigbee-xbee'
+  conf.gem PLATO + 'mruby-plato-wifi'
+  conf.gem PLATO + 'mruby-plato-wifi-xbee'
+
+  conf.gem PLATO + 'mruby-plato-zigbee'
+  conf.gem PLATO + 'mruby-plato-zigbee-xbee'
 end
