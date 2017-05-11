@@ -19,6 +19,11 @@ module PlatoDevice
       }
       addr
     end
+    def mac=(addr)
+      addr.each_with_index {|v, i|
+        _write(0x0009+i, v)
+      }
+    end
 
     # private
     def _read(reg)
@@ -30,6 +35,15 @@ module PlatoDevice
       v = @spi.transfer(0)
       @spi._end
       v
+    end
+    def _write(reg, data)
+      @spi._start
+      @spi.transfer((reg & 0xff00) >> 8)
+      @spi.transfer(reg & 0xff)
+      @spi.transfer(0x80) # write
+      @spi.transfer(0x01) # 1byte
+      @spi.transfer(data)
+      @spi._end
     end
   end
 end

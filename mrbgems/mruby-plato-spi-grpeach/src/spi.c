@@ -16,7 +16,7 @@ typedef struct mrb_mbed_spi {
 } mrb_mbed_spi;
 
 static void
-mrb_spi_free(mrb_state *mrb, void *ptr)
+mrb_mbed_spi_free(mrb_state *mrb, void *ptr)
 {
   mrb_mbed_spi *spi = (mrb_mbed_spi*)ptr;
   if (spi->spi) {
@@ -27,7 +27,7 @@ mrb_spi_free(mrb_state *mrb, void *ptr)
   mrb_free(mrb, ptr);
 }
 
-static const struct mrb_data_type mrb_spi_type = { "mbedSPI", mrb_spi_free };
+static const struct mrb_data_type mrb_spi_type = { "mbedSPI", mrb_mbed_spi_free };
 
 static mrb_value
 mrb_spi_init(mrb_state *mrb, mrb_value self)
@@ -51,24 +51,16 @@ mrb_spi_init(mrb_state *mrb, mrb_value self)
     clk = mrb_fixnum(vclk);
   }
 
-  // spi = (mrb_mbed_spi*)DATA_PTR(self);
-  // if (spi) {
-  //   mrb_free(mrb, spi);
-  // }
-  mrb_data_init(self, NULL, &mrb_spi_type);
   spi = (mrb_mbed_spi*)mrb_malloc(mrb, sizeof(mrb_mbed_spi));
-
   spi->sspin = mrb_fixnum_p(vss) ? mrb_fixnum(vss) : -1;
 
-  // initialize SPI
+  /* initialize SPI object */
 #ifdef NO_MBED
   spi->spi = NULL;
 #else
-  spi = mbedSPIInit(mode, clk);
+  spi->spi = mbedSPIInit(mode, clk);
 #endif
-
   mrb_data_init(self, spi, &mrb_spi_type);
-
   return self;
 }
 
@@ -82,11 +74,11 @@ mrb_spi_transfer(mrb_state *mrb, mrb_value self)
 
   mrb_get_args(mrb, "i", &sd);
 
-  // transfer data to SPI
+  /* transfer data to SPI */
 #ifdef NO_MBED
-#else
+#else /* MBED */
   rd = mbedSPITransfer(spi->spi, sd);
- #endif
+#endif
 
   return mrb_fixnum_value(rd);
 }

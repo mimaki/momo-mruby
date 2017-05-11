@@ -172,18 +172,13 @@ mbedSPIInit(int mode, int freq)
   SPI *spi = new SPI(D11, D12, D13);
   spi->format(8, mode);
   spi->frequency(freq);
-mbedPrintf("SPI init: mode=%d, freq=%d\n", mode, freq);
   return spi;
 }
 
 MBEDAPI int
 mbedSPITransfer(void *spi, int sd)
 {
-  int v;
-mbedPrintf("SPI transfer: sd=%d\n", sd);
-  v = ((SPI*)spi)->write(sd);
-mbedPrintf("SPI transfer: rd=%d\n", v);
-  return v;
+  return ((SPI*)spi)->write(sd);
 }
 
 MBEDAPI void
