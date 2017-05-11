@@ -140,7 +140,6 @@ mbedSerialRawWrite(void *s, int c)
     mbedDelay(1);
   }
   if (retry == 1000) {
-mbedPrintf("Serial#_write retry over!\n");
     return -1;
   }
   return ser->putc(c);
@@ -165,4 +164,32 @@ mbedSerialClose(void *s)
   RawSerial *ser = (RawSerial*)s;
   delete ser;
   return 0;
+}
+
+MBEDAPI void *
+mbedSPIInit(int mode, int freq)
+{
+  SPI *spi = new SPI(D11, D12, D13);
+  spi->format(8, mode);
+  spi->frequency(freq);
+mbedPrintf("SPI init: mode=%d, freq=%d\n", mode, freq);
+  return spi;
+}
+
+MBEDAPI int
+mbedSPITransfer(void *spi, int sd)
+{
+  int v;
+mbedPrintf("SPI transfer: sd=%d\n", sd);
+  v = ((SPI*)spi)->write(sd);
+mbedPrintf("SPI transfer: rd=%d\n", v);
+  return v;
+}
+
+MBEDAPI void
+mbedSPIClose(void *spi)
+{
+  if (spi) {
+    delete (SPI*)spi;
+  }
 }

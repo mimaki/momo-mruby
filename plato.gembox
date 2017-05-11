@@ -21,6 +21,9 @@ MRuby::GemBox.new do |conf|
   conf.gem PLATO + 'mruby-plato-i2c'
   conf.gem TEST  + 'mruby-plato-i2c-grpeach'
 
+  conf.gem PLATO + 'mruby-plato-spi'
+  conf.gem TEST  + 'mruby-plato-spi-grpeach'
+
   conf.gem PLATO + 'mruby-plato-sensor'
   conf.gem PLATO + 'mruby-plato-sensor-hdc1080'
   conf.gem PLATO + 'mruby-plato-sensor-tsl2591'
