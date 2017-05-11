@@ -13,8 +13,6 @@ static const PinName _pins[] = {
 static volatile long _tick = 0L;
 static Ticker _ticker;
 
-static I2C _i2c(I2C_SDA, I2C_SCL);  // TODO: Change to CV
-
 /* Time functions */
 MBEDAPI void
 mbedDelay(int ms)
@@ -72,29 +70,44 @@ mbedDigitalRead(int pin)
 
 /* I2C functions */
 
-MBEDAPI int
-mbedI2CWrite(int addr, const char *cmd, int length, uint8_t repeat)
+MBEDAPI void *
+mbedI2CInit(void)
 {
-  return _i2c.write(addr, cmd, length, (bool)repeat);
+  return new I2C(I2C_SDA, I2C_SCL);
 }
 
 MBEDAPI int
-mbedI2CRead(int addr, char *data, int length)
+mbedI2CWrite(void *i2c, int addr, const char *cmd, int length, uint8_t repeat)
 {
-  return _i2c.read(addr, data, length);
+  return ((I2C*)i2c)->write(addr, cmd, length, (bool)repeat);
+}
+
+MBEDAPI int
+mbedI2CRead(void *i2c, int addr, char *data, int length)
+{
+  return ((I2C*)i2c)->read(addr, data, length);
 }
 
 MBEDAPI void
-mbedI2CStart(void)
+mbedI2CStart(void *i2c)
 {
-  _i2c.start();
+  ((I2C*)i2c)->start();
 }
 
 MBEDAPI void
-mbedI2CStop(void)
+mbedI2CStop(void *i2c)
 {
-  _i2c.stop();
+  ((I2C*)i2c)->stop();
 }
+
+MBEDAPI void
+mbedI2CClose(void *i2c)
+{
+  if (i2c) {
+    delete (I2C*)i2c;
+  }
+}
+
 
 /* Serial(UART) functions */
 MBEDAPI void*
@@ -158,12 +171,12 @@ mbedSerialFlush(void *s)
   return 0;
 }
 
-MBEDAPI int
-mbedSerialClose(void *s)
+MBEDAPI void
+mbedSerialClose(void *ser)
 {
-  RawSerial *ser = (RawSerial*)s;
-  delete ser;
-  return 0;
+  if (ser) {
+    delete (RawSerial*)ser;
+  }
 }
 
 MBEDAPI void *

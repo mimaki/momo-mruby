@@ -40,17 +40,19 @@ MBEDAPI int mbedSerialRawRead(void*);
 MBEDAPI int mbedSerialRawWrite(void*, int);
 MBEDAPI int mbedSerialAvailable(void*);
 MBEDAPI int mbedSerialFlush(void*);
-MBEDAPI int mbedSerialClose(void*);
+MBEDAPI void mbedSerialClose(void*);
 
 /* Digital IO */
 MBEDAPI void mbedDigitalWrite(int, int);
 MBEDAPI int mbedDigitalRead(int);
 
 /* I2C */
-MBEDAPI int mbedI2CWrite(int, const char*, int, uint8_t);
-MBEDAPI int mbedI2CRead(int, char*, int);
-MBEDAPI void mbedI2CStart(void);
-MBEDAPI void mbedI2CStop(void);
+MBEDAPI void *mbedI2CInit(void);
+MBEDAPI int mbedI2CWrite(void*, int, const char*, int, uint8_t);
+MBEDAPI int mbedI2CRead(void*, int, char*, int);
+MBEDAPI void mbedI2CStart(void*);
+MBEDAPI void mbedI2CStop(void*);
+MBEDAPI void mbedI2CClose(void*);
 
 /* SPI */
 MBEDAPI void *mbedSPIInit(int, int);

@@ -6,7 +6,9 @@
 #include "mruby/data.h"
 #include <string.h>
 
-#include "mbedapi.h"
+#ifndef NO_MBED
+  #include "mbedapi.h"
+#endif
 
 typedef struct mrb_mbed_serial {
   void *serial;   /* Serial object */
@@ -33,10 +35,11 @@ mrb_serial_init(mrb_state *mrb, mrb_value self)
   mrb_int dbits=8, start=1, stop=1;
   mrb_mbed_serial *ser;
   mrb_sym sympari = mrb_intern_lit(mrb, "none");
-  int parity;
+  int parity = 0;
 
   mrb_get_args(mrb, "i|iiin", &baud, &dbits, &start, &stop, &sympari);
 
+#ifndef NO_MBED
   if (sympari == mrb_intern_lit(mrb, "odd")) {
     parity = MBED_SERIAL_PARITY_ODD;
   }
@@ -46,15 +49,18 @@ mrb_serial_init(mrb_state *mrb, mrb_value self)
   else {
     parity = MBED_SERIAL_PARITY_NONE;
   }
+#endif
+
+  ser = (mrb_mbed_serial*)mrb_malloc(mrb, sizeof(mrb_mbed_serial));
 
   /* initialize Serial object */
-  ser = (mrb_mbed_serial*)mrb_malloc(mrb, sizeof(mrb_mbed_serial));
-#ifndef NO_MBED
+#ifdef NO_MBED
+  ser->serial = NULL;
+#else /* MBED */
   ser->serial = mbedSerialInit(baud, dbits, start, stop, parity);
 #endif
-  DATA_TYPE(self) = &mrb_serial_type;
-  DATA_PTR(self) = ser;
-  return self;
+  mrb_data_init(self, ser, &mrb_serial_type);
+ return self;
 }
 
 static mrb_value
