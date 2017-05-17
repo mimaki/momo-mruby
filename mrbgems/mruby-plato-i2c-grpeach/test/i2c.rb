@@ -12,10 +12,6 @@ assert('I2C', 'new') do
   i1 = PlatoPeach::I2C.new(1)
   i2 = PlatoPeach::I2C.new(2, 3)
   assert_true(i1 && i2)
-  assert_equal(i1.instance_variable_get("@addr"), 1 << 1)
-  assert_equal(i1.instance_variable_get("@wait"), 1000)
-  assert_equal(i2.instance_variable_get("@addr"), 2 << 1)
-  assert_equal(i2.instance_variable_get("@wait"), 3)
 end
 
 assert('I2C', 'new - argument error') do

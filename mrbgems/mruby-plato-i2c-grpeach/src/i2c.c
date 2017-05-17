@@ -66,9 +66,9 @@ mrb_i2c_read(mrb_state *mrb, mrb_value self)
 #endif
   mrb_mbed_i2c *i2c = DATA_PTR(self);
 
-  if (!i2c->i2c) {
-    mrb_raise(mrb, E_RUNTIME_ERROR, "I2C device is already closed.");
-  }
+#ifndef NO_MBED
+  if (!i2c->i2c) mrb_raise(mrb, E_RUNTIME_ERROR, "I2C device is already closed.");
+#endif
 
   mrb_get_args(mrb, "ii|n", &reg, &len, &type);
 
@@ -120,9 +120,9 @@ mrb_i2c_write(mrb_state *mrb, mrb_value self)
   mrb_int i;
   mrb_mbed_i2c *i2c = DATA_PTR(self);
 
-  if (!i2c->i2c) {
-    mrb_raise(mrb, E_RUNTIME_ERROR, "I2C device is already closed.");
-  }
+#ifndef NO_MBED
+  if (!i2c->i2c) mrb_raise(mrb, E_RUNTIME_ERROR, "I2C device is already closed.");
+#endif
 
   mrb_get_args(mrb, "io|b", &reg, &data, &rep);
 
@@ -169,6 +169,7 @@ mrb_i2c_start(mrb_state *mrb, mrb_value self)
 {
   mrb_mbed_i2c *i2c = DATA_PTR(self);
 #ifndef NO_MBED
+  if (!i2c->i2c) mrb_raise(mrb, E_RUNTIME_ERROR, "I2C device is already closed.");
   mbedI2CStart(i2c->i2c);
 #endif
   return mrb_nil_value();
@@ -179,6 +180,7 @@ mrb_i2c_end(mrb_state *mrb, mrb_value self)
 {
   mrb_mbed_i2c *i2c = DATA_PTR(self);
 #ifndef NO_MBED
+  if (!i2c->i2c) mrb_raise(mrb, E_RUNTIME_ERROR, "I2C device is already closed.");
   mbedI2CStop(i2c->i2c);
 #endif
   return mrb_nil_value();
@@ -189,6 +191,7 @@ mrb_mruby_plato_i2c_grpeach_gem_init(mrb_state *mrb)
 {
   struct RClass *mod  = mrb_define_module(mrb, "PlatoPeach");
   struct RClass *i2c  = mrb_define_class_under(mrb, mod, "I2C", mrb->object_class);
+  MRB_SET_INSTANCE_TT(i2c, MRB_TT_DATA);
 
   mrb_define_method(mrb, i2c, "initialize", mrb_i2c_init,     MRB_ARGS_ARG(1, 1));
   mrb_define_method(mrb, i2c, "read",       mrb_i2c_read,     MRB_ARGS_ARG(2, 1));

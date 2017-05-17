@@ -68,8 +68,8 @@ mrb_serial_read(mrb_state *mrb, mrb_value self)
 {
   mrb_mbed_serial *ser = DATA_PTR(self);
   mrb_int val = -1;
-  if (!ser->serial) mrb_raise(mrb, E_RUNTIME_ERROR, "Serial port is already closed.");
 #ifndef NO_MBED
+  if (!ser->serial) mrb_raise(mrb, E_RUNTIME_ERROR, "Serial port is already closed.");
   /* read data from Serial */
   val = mbedSerialRawRead(ser->serial);
 #endif
@@ -81,7 +81,9 @@ mrb_serial_write(mrb_state *mrb, mrb_value self)
 {
   mrb_mbed_serial *ser = DATA_PTR(self);
   mrb_int val;
+#ifndef NO_MBED
   if (!ser->serial) mrb_raise(mrb, E_RUNTIME_ERROR, "Serial port is already closed.");
+#endif
   mrb_get_args(mrb, "i", &val);
 #ifndef NO_MBED
   /* write data to Serial */
@@ -95,8 +97,8 @@ mrb_serial_available(mrb_state *mrb, mrb_value self)
 {
   mrb_mbed_serial *ser = DATA_PTR(self);
   mrb_int len = 0;
-  if (!ser->serial) mrb_raise(mrb, E_RUNTIME_ERROR, "Serial port is already closed.");
 #ifndef NO_MBED
+  if (!ser->serial) mrb_raise(mrb, E_RUNTIME_ERROR, "Serial port is already closed.");
   len = mbedSerialAvailable(ser->serial);
 #endif
   return mrb_fixnum_value(len);
@@ -106,8 +108,8 @@ static mrb_value
 mrb_serial_flush(mrb_state *mrb, mrb_value self)
 {
   mrb_mbed_serial *ser = DATA_PTR(self);
-  if (!ser->serial) mrb_raise(mrb, E_RUNTIME_ERROR, "Serial port is already closed.");
 #ifndef NO_MBED
+  if (!ser->serial) mrb_raise(mrb, E_RUNTIME_ERROR, "Serial port is already closed.");
   // TODO
 #endif
   return mrb_nil_value();
