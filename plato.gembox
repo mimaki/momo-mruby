@@ -1,37 +1,36 @@
-PLATO = '~/plato/mrbgems/'
 TEST  = './mrbgems/'
 
 MRuby::GemBox.new do |conf|
-  conf.gem PLATO + 'mruby-plato-machine'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-machine.git'
   conf.gem TEST  + 'mruby-plato-machine-grpeach'
 
-  conf.gem PLATO + 'mruby-plato-gpio'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-gpio.git'
   conf.gem TEST  + 'mruby-plato-gpio-grpeach'
 
-  conf.gem PLATO + 'mruby-plato-digitalio'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-digitalio.git'
   conf.gem TEST  + 'mruby-plato-digitalio-grpeach'
 
-  conf.gem PLATO + 'mruby-plato-led'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-led.git'
 
-  conf.gem PLATO + 'mruby-plato-buttonswitch'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-buttonswitch.git'
 
-  conf.gem PLATO + 'mruby-plato-serial'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-serial.git'
   conf.gem TEST  + 'mruby-plato-serial-grpeach'
 
-  conf.gem PLATO + 'mruby-plato-i2c'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-i2c.git'
   conf.gem TEST  + 'mruby-plato-i2c-grpeach'
 
-  conf.gem PLATO + 'mruby-plato-spi'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-spi.git'
   conf.gem TEST  + 'mruby-plato-spi-grpeach'
 
-  conf.gem PLATO + 'mruby-plato-sensor'
-  conf.gem PLATO + 'mruby-plato-sensor-hdc1080'
-  conf.gem PLATO + 'mruby-plato-sensor-tsl2591'
-  conf.gem PLATO + 'mruby-plato-lcd-aqm0802a'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-sensor.git'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-sensor-hdc1080.git'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-sensor-tsl2591.git'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-lcd-aqm0802a.git'
 
-  conf.gem PLATO + 'mruby-plato-wifi'
-  conf.gem PLATO + 'mruby-plato-wifi-xbee'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-wifi.git'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-wifi-xbee.git'
 
-  conf.gem PLATO + 'mruby-plato-zigbee'
-  conf.gem PLATO + 'mruby-plato-zigbee-xbee'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-zigbee.git'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-zigbee-xbee.git'
 end
