@@ -33,4 +33,9 @@ MRuby::GemBox.new do |conf|
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-zigbee.git'
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-zigbee-xbee.git'
+
+  conf.gem TEST + 'mruby-stdio'
+  conf.gem TEST + 'mruby-stdio-grpeach'
+
+  conf.gem :git => 'https://github.com/mimaki/mruby-tiny-io.git'
 end

@@ -7,9 +7,13 @@
 # mbed
 *.pyc
 BUILD/
+mbed-os/
+SDFileSystem/
+.temp/
 
 # mruby
 build/
+*.mrb
 
 # application
 app.c

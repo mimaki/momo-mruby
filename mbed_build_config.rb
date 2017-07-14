@@ -23,6 +23,8 @@ MRuby::Build.new do |conf|
 
   # include the default GEMs
   conf.gembox 'default'
+  conf.gembox '../../mbed'
+  conf.gembox '../../plato'
   # C compiler settings
   # conf.cc do |cc|
   #   cc.command = ENV['CC'] || 'gcc'
@@ -33,6 +35,10 @@ MRuby::Build.new do |conf|
   #   cc.option_define = '-D%s'
   #   cc.compile_options = "%{flags} -MMD -o %{outfile} -c %{infile}"
   # end
+  conf.cc {|cc|
+    cc.include_paths << %w(..)
+    cc.defines << 'NO_MBED'
+  }
 
   # mrbc settings
   # conf.mrbc do |mrbc|
