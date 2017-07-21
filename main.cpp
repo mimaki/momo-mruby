@@ -12,7 +12,7 @@
 #include <string.h>
 
 #define PRELOAD "/sd/preload"
-#define AUTORUN "/sd/autorun.mrb"
+#define AUTORUN "autorun.mrb"
 #define LOW   0
 #define HIGH  1
 
@@ -82,7 +82,7 @@ launchMRBFile(mrb_state *mrb, const char *fn)
 
   strcat(path, fn);
   if ((fp = fopen(path, "r")) != NULL) {
-    mbedPrintf("Run \"%s\"\n", path);
+    mbedPrintf("run \"%s\"\n", path);
     v = mrb_load_irep_file(mrb, fp);
     fclose(fp);
     s = mrb_obj_as_string(mrb, v);
