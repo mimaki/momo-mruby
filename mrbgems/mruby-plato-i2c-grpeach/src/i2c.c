@@ -116,8 +116,7 @@ mrb_i2c_write(mrb_state *mrb, mrb_value self)
   mrb_bool rep = FALSE;
   mrb_value data, v;
   uint8_t *buf;
-  size_t len;
-  mrb_int i;
+  size_t len, i;
   mrb_mbed_i2c *i2c = DATA_PTR(self);
 
 #ifndef NO_MBED

@@ -139,6 +139,7 @@ mrb_mruby_plato_serial_grpeach_gem_init(mrb_state *mrb)
   mrb_define_method(mrb, ser, "_read",      mrb_serial_read,      MRB_ARGS_NONE());
   mrb_define_method(mrb, ser, "_write",     mrb_serial_write,     MRB_ARGS_REQ(1));
   mrb_define_method(mrb, ser, "available",  mrb_serial_available, MRB_ARGS_NONE());
+  mrb_define_method(mrb, ser, "flush",      mrb_serial_flush,     MRB_ARGS_NONE());
   mrb_define_method(mrb, ser, "close",      mrb_serial_close,     MRB_ARGS_NONE());
 }
 

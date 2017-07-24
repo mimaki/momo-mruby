@@ -14,7 +14,7 @@ static const char *pinname[] = {
 void
 mrb_mruby_plato_gpio_grpeach_gem_init(mrb_state *mrb)
 {
-  mrb_int i;
+  size_t i;
   struct RClass *plato  = mrb_module_get(mrb, "Plato");
   struct RClass *gpio   = mrb_class_get_under(mrb, plato, "GPIO");
 
