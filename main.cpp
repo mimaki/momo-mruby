@@ -33,14 +33,14 @@ DigitalOut ledg(LED2);
 DigitalOut ledb(LED3);
 DigitalIn button(USER_BUTTON0);
 
-Config config = {
-  "0.0.0.0",
-  "0.0.0.0",
-  "0.0.0.0",
-  1,
-  1,
-  0
-};
+// static Config config = {
+//   "0.0.0.0",
+//   "0.0.0.0",
+//   "0.0.0.0",
+//   1,
+//   1,
+//   0
+// };
 
 extern "C" int mirb(mrb_state *mrb);
 
@@ -105,17 +105,17 @@ int main(void)
 {
   mrb_state *mrb;
   char *mrblist, *fn;
-  mrb_int cmd = 0;
 
   while (1) {
     ledr = 1;
     mrb = mrb_open();
-
-    wait(0.1); ledg = 1;
+    ledr = 0;
 
     if (button == LOW) {
+      ledb = 1;
       mbedPrintf("Enter mbed-mruby configuration mode\n");
-      cmd = configure(mrb);
+      configure(mrb);
+      ledb = 0;
     }
 
     /* Launch applications that listed in /sd/preload */
@@ -133,10 +133,6 @@ int main(void)
 
     /* Launch autorun.mrb */
     launchMRBFile(mrb, AUTORUN);
-
-    wait(0.1); ledb = 1;
-
-    wait(0.3); ledr = 0; ledg = 0; ledb = 0;
 
     /* lauch mirb */
     mirb(mrb);

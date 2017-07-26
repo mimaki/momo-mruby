@@ -79,4 +79,10 @@ MRuby::GemBox.new do |conf|
 
   # Use Kernel.#eval
   conf.gem :core => "mruby-eval"
+
+  # Onigumo Regexp class
+#  conf.gem :git => 'https://github.com/mattn/mruby-onig-regexp.git'
+
+  # SimpleHttp class
+  conf.gem :git => 'https://github.com/mimaki/mruby-simplehttp.git', :branch => 'no-ssl'
 end
