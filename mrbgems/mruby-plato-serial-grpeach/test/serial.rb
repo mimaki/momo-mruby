@@ -1,14 +1,11 @@
 # PlatoPeach::Serial class
 
-assert('Serial', 'class') do
-  assert_equal(PlatoPeach::Serial.class, Class)
+assert('Serial - class') do
+  assert_kind_of(Class, PlatoPeach::Serial)
+  assert_equal(Object, PlatoPeach::Serial.superclass)
 end
 
-assert('Serial', 'superclass') do
-  assert_equal(PlatoPeach::Serial.superclass, Object)
-end
-
-assert('Serial', 'new') do
+assert('Serial#new') do
   assert_nothing_raised {
     PlatoPeach::Serial.new(1200)
     PlatoPeach::Serial.new(2400, 7)
@@ -19,51 +16,44 @@ assert('Serial', 'new') do
     PlatoPeach::Serial.new(115200, 8, 1, 1, :none)
     PlatoPeach::Serial.new(115200, 8, 1, 1, :xxx)
   }
-end
-
-assert('Serial', 'new - argument error') do
   assert_raise(ArgumentError) {PlatoPeach::Serial.new}
   assert_raise(ArgumentError) {PlatoPeach::Serial.new(9600, 8, 1, 1, :none, 0)}
 end
 
-assert('Serial', 'oepn - Plato::Serial') do
+assert('Serial.oepn - Plato::Serial') do
   assert_nothing_raised {
     Plato::Serial.register_device(PlatoPeach::Serial)
     Plato::Serial.open(9600)
   }
 end
 
-assert('Serial', '_read') do
+assert('Serial#_read') do
   ser = Plato::Serial.open(9600)
-  assert_equal(ser._read, -1)
+  assert_equal(-1, ser._read)
 end
 
-assert('Serial', '_write') do
+assert('Serial#_write') do
+  ser = Plato::Serial.open(9600)
   assert_nothing_raised {
-    ser = Plato::Serial.open(9600)
     ser._write(1)
   }
-end
-
-assert('Serial', 'write - argument error') do
-  ser = Plato::Serial.open(9600)
   assert_raise(ArgumentError) {ser.write}
   assert_raise(ArgumentError) {ser.write(0, 1)}
 end
 
-assert('Serial', 'available') do
+assert('Serial#available') do
   ser = Plato::Serial.open(9600)
-  assert_equal(ser.available, 0)
+  assert_equal(0, ser.available)
 end
 
-assert('Serial', 'flush') do
+assert('Serial#flush') do
   assert_nothing_raised {
     ser = Plato::Serial.open(9600)
     ser.flush
   }
 end
 
-assert('Serial', 'close') do
+assert('Serial#close') do
   assert_nothing_raised {
     ser = Plato::Serial.open(9600)
     ser.close
