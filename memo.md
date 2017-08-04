@@ -7,7 +7,6 @@
 − mbedのRTOS機能をサポートする
 - Ethernetを実装する
 - TLSを実装する
-− mrdbに対応する
 
 # in progress
 - メニューを作る
@@ -20,3 +19,8 @@
 - SPIを実装する
 - Kernel.getsを追加する
 - File/IOを作る
+- mbed側のビルドで -DMRB_ENABLE_DEBUG_HOOK が指定できない  
+  → デバッガを使用する場合は **mrb_conf.h** にパッチをあてる
+− mrdbに対応する
+
+# 課題

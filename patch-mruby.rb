@@ -22,3 +22,6 @@ end
     `sed -i #{bak} 's!mruby/string.h!mruby/_string.h!g' #{f}`
   end
 }
+
+# Enable MRB_ENABLE_DEBUG_HOOK
+`sed -i #{bak} 's!^//#define MRB_ENABLE_DEBUG_HOOK!#define MRB_ENABLE_DEBUG_HOOK 1!g' mruby/include/mrbconf.h`

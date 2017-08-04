@@ -42,7 +42,8 @@ DigitalIn button(USER_BUTTON0);
 //   0
 // };
 
-extern "C" int mirb(mrb_state *mrb);
+extern "C" int mirb(mrb_state*);
+extern "C" int mrb_debugger(mrb_state*, const char*);
 
 // Load pre-load MRB file list
 // Args
@@ -116,6 +117,10 @@ int main(void)
       mbedPrintf("Enter mbed-mruby configuration mode\n");
       configure(mrb);
       ledb = 0;
+    }
+
+    if (mrb_debugger(mrb, "/sd/autorun.mrb") == 0) {
+      continue;
     }
 
     /* Launch applications that listed in /sd/preload */
