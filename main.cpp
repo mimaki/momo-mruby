@@ -4,17 +4,27 @@
 #include "mruby.h"
 #include "mruby/class.h"
 #include "mruby/irep.h"
+#include "mruby/variable.h"
 #include "mruby/dump.h"
 #include "mruby/_string.h"
+#include "mruby/hash.h"
 #include "mbedapi.h"
 
 #include <stdio.h>
 #include <string.h>
 
-#define PRELOAD "/sd/preload"
+#define SD_ROOT "/sd/"
+#define PRELOAD "preload"
 #define AUTORUN "autorun.mrb"
 #define LOW   0
 #define HIGH  1
+
+#define KEY_IPADDR  "ipaddr"
+#define KEY_SUBNET  "subnet"
+#define KEY_GATEWAY "gatewauy"
+#define KEY_DHCP    "DHCP"
+#define KEY_MIRB    "mirb"
+#define KEY_MRDB    "mrdb"
 
 typedef struct _Config {
   char ipaddr[16];    /* IP address */
@@ -33,15 +43,6 @@ DigitalOut ledg(LED2);
 DigitalOut ledb(LED3);
 DigitalIn button(USER_BUTTON0);
 
-// static Config config = {
-//   "0.0.0.0",
-//   "0.0.0.0",
-//   "0.0.0.0",
-//   1,
-//   1,
-//   0
-// };
-
 extern "C" int mirb(mrb_state*);
 extern "C" int mrb_debugger(mrb_state*, const char*);
 
@@ -57,7 +58,7 @@ getMRBFiles(mrb_state *mrb)
   long fsz;
   FILE *fp;
 
-  if ((fp = fopen(PRELOAD, "rb")) != NULL) {
+  if ((fp = fopen(SD_ROOT PRELOAD, "rb")) != NULL) {
     fseek(fp, 0, SEEK_END);
     fsz = ftell(fp);
     list = (char*)mrb_malloc(mrb, fsz + 1);
@@ -77,7 +78,7 @@ getMRBFiles(mrb_state *mrb)
 static int
 launchMRBFile(mrb_state *mrb, const char *fn)
 {
-  char path[PATH_MAX] = "/sd/";
+  char path[PATH_MAX] = SD_ROOT;
   FILE *fp;
   mrb_value v, s;
 
@@ -95,31 +96,74 @@ launchMRBFile(mrb_state *mrb, const char *fn)
 }
 
 static mrb_int
-configure(mrb_state *mrb)
+get_fixnum(mrb_state *mrb, mrb_value cfg, const char *key)
+{
+  mrb_value v = mrb_hash_get(mrb, cfg, mrb_symbol_value(mrb_intern_cstr(mrb, key)));
+  if (mrb_fixnum_p(v))  return mrb_fixnum(v);
+  if (!mrb_string_p(v)) v = mrb_obj_as_string(mrb, v);
+  return (mrb_int)atoi(mrb_str_to_cstr(mrb, v));
+}
+
+static char *
+get_string(mrb_state *mrb, mrb_value cfg, const char *key)
+{
+  mrb_value v = mrb_hash_get(mrb, cfg, mrb_symbol_value(mrb_intern_cstr(mrb, key)));
+  if (!mrb_string_p(v)) v = mrb_obj_as_string(mrb, v);
+  return mrb_str_to_cstr(mrb, v);
+}
+
+static Config*
+configure(mrb_state *mrb, bool menu)
 {
   extern const uint8_t cfgmenu[];
-  mrb_value vcmd = mrb_load_irep(mrb, cfgmenu);
-  return mrb_fixnum(vcmd);
+  static Config config = {
+    "0.0.0.0",  // IP address
+    "0.0.0.0",  // Subnet mask
+    "0.0.0.0",  // Default gateway
+    1,          // DHCP
+    1,          // mirb
+    0           // mrdb
+  };
+  mrb_value cfg;
+
+  mrb_gv_set(mrb, mrb_intern_lit(mrb, "$menu"), mrb_bool_value(menu));
+  mrb_load_irep(mrb, cfgmenu);
+  cfg = mrb_gv_get(mrb, mrb_intern_lit(mrb, "$appcfg"));
+
+  config.mirb = get_fixnum(mrb, cfg, "mirb");
+  config.mrdb = get_fixnum(mrb, cfg, "mrdb");
+  config.dhcp = get_fixnum(mrb, cfg, "lan_dhcp");
+  strcpy(config.ipaddr, get_string(mrb, cfg, "lan_ipaddr"));
+  strcpy(config.subnet, get_string(mrb, cfg, "lan_subnet"));
+  strcpy(config.gateway, get_string(mrb, cfg, "lan_gateway"));
+
+  return &config;
 }
 
 int main(void)
 {
   mrb_state *mrb;
   char *mrblist, *fn;
+  bool menu = false;
+  Config *cfg;
 
   while (1) {
     ledr = 1;
     mrb = mrb_open();
     ledr = 0;
 
+    ledb = 1;
     if (button == LOW) {
-      ledb = 1;
       mbedPrintf("Enter mbed-mruby configuration mode\n");
-      configure(mrb);
-      ledb = 0;
+      menu = true;
     }
+    cfg = configure(mrb, menu);
+    menu = 0;
+    ledb = 0;
 
-    if (mrb_debugger(mrb, "/sd/autorun.mrb") == 0) {
+    if (cfg->mrdb) {
+      mrb_debugger(mrb, SD_ROOT AUTORUN);
+      /* mrb was closed */
       continue;
     }
 
@@ -139,8 +183,10 @@ int main(void)
     /* Launch autorun.mrb */
     launchMRBFile(mrb, AUTORUN);
 
-    /* lauch mirb */
-    mirb(mrb);
+    /* launch mirb */
+    if (cfg->mirb) {
+      mirb(mrb);
+    }
 
     mrb_close(mrb);
     /* restart mruby */

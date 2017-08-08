@@ -11,7 +11,7 @@
 
 CFGKEYS = [
   'mirb',
-  # 'mrdb',
+  'mrdb',
   'STDOUT',
   'STDIN',
   # 'LAN_DHCP',
@@ -80,7 +80,7 @@ app_config = Proc.new {
   cfg = load_config
   [
     [:mirb,     'Enable mirb'],
-    # [:mrdb,     'Enable mruby debugger'],
+    [:mrdb,     'Enable mruby debugger'],
     [:stdout,   'Enable STDOUT via VCP'],
     [:stdin,    'Enable STDIN via VCP'],
     # [:lan_dhcp, 'Enable DHCP on LAN']
@@ -160,10 +160,12 @@ preload_config = Proc.new {
     }
     print "> "
     cmd = gets.chomp
-    if menu = preload_menu[cmd[0].upcase]
-      ret = menu[:proc].call(mods)
-      break if ret == 'exit'
-      mods = ret
+    if cmd.size > 0
+      if menu = preload_menu[cmd[0].upcase]
+        ret = menu[:proc].call(mods)
+        break if ret == 'exit'
+        mods = ret
+      end
     end
   }
 }
@@ -179,24 +181,35 @@ preload_config = Proc.new {
 #   puts "IPv4 setting..."
 # }
 
-main_menu = {
-  'A' => {:menu=>'Application setting',               :proc=>app_config},
-  # 'D' => {:menu=>'mruby debugger setting',            :proc=>mrdb_config},
-  # 'I' => {:menu=>'Interactive mruby (mirb) setting',  :proc=>mirb_config},
-  'P' => {:menu=>'Preload module setting',            :proc=>preload_config},
-  # 'L' => {:menu=>'LAN IPv4 setting',                  :proc=>ipv4_config},
-  'X' => {:menu=>'Exit configuration menu',           :proc=>exit_menu},
-}
+# load mruby.cfg
+load_config
 
-loop {
-  puts "\n<< Configuration MENU >>"
-  main_menu.each {|cmd|
-    puts "#{cmd[0]}: #{cmd[1][:menu]}"
-  }
-  print "> "
-  cmd = gets.chomp
-  if menu = main_menu[cmd[0].upcase]
-    ret = menu[:proc].call
-    break if ret == 'exit'
+begin
+  if $menu
+    main_menu = {
+      'A' => {:menu=>'Application setting',               :proc=>app_config},
+      # 'D' => {:menu=>'mruby debugger setting',            :proc=>mrdb_config},
+      # 'I' => {:menu=>'Interactive mruby (mirb) setting',  :proc=>mirb_config},
+      'P' => {:menu=>'Preload module setting',            :proc=>preload_config},
+      # 'L' => {:menu=>'LAN IPv4 setting',                  :proc=>ipv4_config},
+      'X' => {:menu=>'Exit configuration menu',           :proc=>exit_menu},
+    }
+
+    loop {
+      puts "\n<< Configuration MENU >>"
+      main_menu.each {|cmd|
+        puts "#{cmd[0]}: #{cmd[1][:menu]}"
+      }
+      print "> "
+      cmd = gets.chomp
+      if cmd.size > 0
+        if menu = main_menu[cmd[0].upcase]
+          ret = menu[:proc].call
+          break if ret == 'exit'
+        end
+      end
+    }
   end
-}
+rescue => e
+  puts e
+end
