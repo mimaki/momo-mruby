@@ -1,27 +1,25 @@
-TEST  = './mrbgems/'
-
 MRuby::GemBox.new do |conf|
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-machine.git'
-  conf.gem TEST  + 'mruby-plato-machine-grpeach'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-machine-grpeach.git'
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-gpio.git'
-  conf.gem TEST  + 'mruby-plato-gpio-grpeach'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-gpio-grpeach.git'
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-digitalio.git'
-  conf.gem TEST  + 'mruby-plato-digitalio-grpeach'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-digitalio-grpeach.git'
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-led.git'
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-buttonswitch.git'
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-serial.git'
-  conf.gem TEST  + 'mruby-plato-serial-grpeach'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-serial-grpeach.git'
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-i2c.git'
-  conf.gem TEST  + 'mruby-plato-i2c-grpeach'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-i2c-grpeach.git'
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-spi.git'
-  conf.gem TEST  + 'mruby-plato-spi-grpeach'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-spi-grpeach.git'
 
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-sensor.git'
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-sensor-hdc1080.git'
@@ -34,8 +32,8 @@ MRuby::GemBox.new do |conf|
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-zigbee.git'
   conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-zigbee-xbee.git'
 
-  conf.gem TEST + 'mruby-stdio'
-  conf.gem TEST + 'mruby-stdio-grpeach'
+  conf.gem :git => 'https://github.com/mimaki/mruby-stdio.git'
+  conf.gem :git => 'https://github.com/mimaki/mruby-stdio-grpeach.git'
 
   conf.gem :git => 'https://github.com/mimaki/mruby-tiny-io.git'
 end
