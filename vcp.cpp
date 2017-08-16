@@ -24,6 +24,9 @@ mbedPrintf(const char *format, ...)
 MBEDAPI void
 mbedPutc(char c)
 {
+  while (!vcp.writeable()) {
+    wait_us(1);
+  }
   vcp.putc(c);
 }
 
