@@ -58,6 +58,8 @@ getMRBFiles(mrb_state *mrb)
   long fsz;
   FILE *fp;
 
+  if (sd.disk_status()) return NULL;  /* SD not initialized */
+
   if ((fp = fopen(SD_ROOT PRELOAD, "rb")) != NULL) {
     fseek(fp, 0, SEEK_END);
     fsz = ftell(fp);
@@ -81,6 +83,8 @@ launchMRBFile(mrb_state *mrb, const char *fn)
   char path[PATH_MAX] = SD_ROOT;
   FILE *fp;
   mrb_value v, s;
+
+  if (sd.disk_status()) return 0; /* SD not initialized */
 
   strcat(path, fn);
   if ((fp = fopen(path, "r")) != NULL) {
