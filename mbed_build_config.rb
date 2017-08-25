@@ -135,7 +135,7 @@ MRuby::Build.new('test') do |conf|
 
   conf.gembox '../../mbed'
   conf.gembox '../../plato'
-  conf.gem '~/plato/mrbgems/mruby-plato-machine-sim'
+  conf.gem :git => 'https://github.com/mruby-plato-mgem/mruby-plato-machine-sim.git'
 end
 
 # MRuby::Build.new('bench') do |conf|

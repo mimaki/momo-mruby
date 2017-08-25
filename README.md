@@ -124,12 +124,12 @@ GR-PEACHをPCにUSB接続します。
 MBEDドライブがマウントされるので、以下のファイルをMBEDドライブにコピーします。  
 ./BUILD/RZ\_A1H/GCC\_ARM/momo-mruby.bin
 
-しばらくすると（数秒以上かかります）MBEDドライブが再度マウントされ、momo-mruby
+しばらくすると（数秒以上かかります）MBEDドライブが再度マウントされ、momo-mrubyが起動します。
 
 
 # mrubyアプリケーションの実行
 
-momo-mrubyが起動時にmicroSDカードが装着されている場合、ルートディレクトリにある**autorun.mrb**を実行します。  
+momo-mruby起動時にmicroSDカードが装着されている場合は、ルートディレクトリにある**autorun.mrb**を実行します。  
 mrubyアプリケーションのコンパイルには、mrubyコンパイラ(mrbc)を使用します。app.rbをコンパイルする場合にはmruby/binディレクトリ内のmrbcコマンドを実行します。
 
 ```

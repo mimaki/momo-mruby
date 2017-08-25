@@ -14,6 +14,8 @@ mruby/build/mbed/mrbgems/*/*/*.o
 mruby/build/mbed/mrblib/*.o
 mruby/build/mbed/src/*.o
 
+mruby/build/mrbgems/mruby-*-sim/
+
 mruby/doc/
 mruby/examples/
 # mruby/include/
