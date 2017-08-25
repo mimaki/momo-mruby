@@ -25,7 +25,7 @@ MRuby::Build.new do |conf|
   conf.gembox 'default'
   conf.gembox '../../mbed'
   conf.gembox '../../plato'
-  conf.gem :git => 'https://bitbucket.org/mimaki/mruby-debugger.git'
+  conf.gem :git => 'https://bitbucket.org/scskq/mruby-debugger.git'
   # C compiler settings
   # conf.cc do |cc|
   #   cc.command = ENV['CC'] || 'gcc'
@@ -189,7 +189,7 @@ MRuby::CrossBuild.new('mbed') do |conf|
 
   conf.gembox '../../mbed'
   conf.gembox '../../plato'
-  conf.gem :git => 'https://bitbucket.org/mimaki/mruby-debugger.git'
+  conf.gem :git => 'https://bitbucket.org/scskq/mruby-debugger.git'
 
 # PLATO = '~/plato/mrbgems/'
 # TEST  = './mruby/mrbgems/'

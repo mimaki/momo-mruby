@@ -9,12 +9,12 @@ microSDに書き込んだmrubyアプリケーションを実行できます。
 mrubyコンパイラ(mrbc)でコンパイルしたmrubyバイナリ(mrbファイル)が実行できます。(mrubyスクリプトの実行もサポート予定)  
 また、複数のアプリケーションを連続で実行することも可能です。
 
-2. mruby IoT フレームワーク Plato 対応  
-momo-mrubyは、mruby IoT フレームワーク「[Plato](http://plato.click)」に対応しています。Platoで作成したIoTアプリケーションはmomo-mrubyで動作させることができます。
-
 3. 対話型mruby(mirb)  
 momo-mrubyでは、Rubyのirbに相当する対話型mruby(mirb)を動作させることができます。  
 mirbでは対話形式でmrubyスクリプトを動作させることができるため、mrubyスクリプトの簡易実行やmrubyライブラリの動作確認等に利用できます。
+
+3. mruby IoT フレームワーク Plato 対応  
+momo-mrubyは、mruby IoT フレームワーク「[Plato](http://plato.click)」に対応しています。Platoで作成したIoTアプリケーションはmomo-mrubyで動作させることができます。
 
 
 # セットアップ
@@ -30,10 +30,12 @@ mbed CLI を利用するためには Python 2.7 が必要です。(Python 3は�
 **※ momo-mruby上ではPythonは動作しません。**
 
 2. Git  
-[Git](https://git-scm.com/) 1.9.5 以降をインストールしてください。  
-mbed CLI では Marcurialリポジトリも利用可能ですが、momo-mrubyでは使用しないためインストール不要です。
+[Git](https://git-scm.com/) 1.9.5 以降をインストールしてください。
 
-3. GNU ARM Embedded Toolchain  
+3. Mercurial
+[Mercurial](https://www.mercurial-scm.org/) 2.2.2 以降をインストールして下さい。
+
+4. GNU ARM Embedded Toolchain  
 [GNU ARM Embedded Toolchain 5.4](https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q2-update) をインストールしてください。
 
 以下のコマンドを実行し、上記それぞれにパスが通っていることを確認します。
@@ -47,6 +49,17 @@ Python 2.7.xx
 ```
 $ git --version
 git version 2.x.xxxxxx
+```
+**Mercurial**
+```
+$ hg --version
+Mercurial - 分散構成管理ツール(バージョン 4.1.2)
+(詳細は https://mercurial-scm.org を参照)
+
+Copyright (C) 2005-2017 Matt Mackall and others
+本製品はフリーソフトウェアです。
+頒布条件に関しては同梱されるライセンス条項をお読みください。
+市場適合性や特定用途への可否を含め、 本製品は無保証です。
 ```
 **GNU ARM Toolchain**
 ```
@@ -72,6 +85,13 @@ $ export PATH=$PATH:$INSTALL_DIR/gcc-arm-none-eabi-5_4-2016q2/bin
 ※ **$INSTALL_DIR**には、GNU ARM Toolchainsをインストールしたディレクトリを指定して下さい。
 
 
+5. mbed CLI  
+mbed CLIをインストールします。
+```
+$ pip install mbed-cli
+```
+
+
 # ソースコードの取得とビルド
 
 以下のコマンドを実行して、 **momo-mruby** のソースコードを取得します。
@@ -85,6 +105,7 @@ $ git clone https://github.com/mimaki/momo-mruby.git --recursive
 ```
 $ cd momo-mruby
 $ make clean
+$ make
 ```
 <font color="IndianRed">
 
