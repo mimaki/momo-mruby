@@ -16,13 +16,74 @@ mirbでは対話形式でmrubyスクリプトを動作させることができ�
 3. mruby IoT フレームワーク Plato 対応  
 momo-mrubyは、mruby IoT フレームワーク「[Plato](http://plato.click)」に対応しています。Platoで作成したIoTアプリケーションはmomo-mrubyで動作させることができます。
 
+# momo-mruby環境構築
 
-# セットアップ
+## mrubyビルド環境のセットアップ
+momo-mrubyでは、開発環境にmrubyのビルド環境を設定する必要があります。  
+mrubyをビルドするためには以下をセットアップする必要があります。
+
+- C言語開発環境 (gcc等)
+- Ruby
+- GNU Bison
+
+## C言語開発環境
+
+### Windowsの場合
+Windows環境でのmrubyのビルドには、Microsoft Visual Studio(VC++)、MinGW(gcc)、Cygwin(gcc)等が利用可能ですが、ここでは[MinGW](http://www.mingw.org/)を使用する前提で説明していきます。  
+[MinGWのダウンロードサイト](https://sourceforge.net/projects/mingw/files/Installer/)から**mingw-get-setup.exe**をダウンロードして実行します。（インストール時の設定はデフォルトのままでOKです）  
+
+**MinGW Installation Manager**の画面が表示されたら
+- mingw32-base
+- mingw32-gcc-g++
+- msys-base
+
+の3項目を選択して、**Installation**メニューの**Apply Changes**を実行して下さい。  
+インストール完了後、以下のファイルのショートカットをデスクトップに作成します。
+```
+C:¥MinGW¥msys¥1.0¥msys.bat
+```
+**注意**  
+以下、Windows環境でのコマンド実行は、このmsys.batを実行して表示されるコマンド画面から実行するものとします。
+
+
+### Macの場合  
+XcodeのCommand Line Toolsをインストールして下さい。
+
+
+## Ruby
+
+mrubyをビルドするためには、本家Rubyが必要です。  
+
+### Windowsの場合
+[RubyInstaller](https://rubyinstaller.org/)より、2.0.0以降のバージョンのインストーラをダウンロードして、Rubyをインストールして下さい。  
+
+### Macの場合
+プリインストールされているRuby、またはrbenvなどでインストールされたRubyがそのまま利用できます。
+
+
+## GNU Bison
+
+### Windowsの場合  
+[Bison for Windows](http://gnuwin32.sourceforge.net/packages/bison.htm)より、**Complete package, except sources**の**Setup**をダウンロードして、Bisonをインストールして下さい。  
+インストール先のフォルダ名は **C:¥GnuWin32** に指定するものとします。  
+インストール実行後、環境変数 **PATH** に以下を追加して下さい。
+```
+C:¥GnuWin32¥bin
+```
+
+### Macの場合  
+**Homebrew**を使用して、以下のコマンドでBisonをインストールします。
+```
+$ brew install bison
+```
+
+以下のコマンドを実行し、上記それぞれにパスが通っていることを確認します。
+
+
+## mbed CLIのセットアップ
 
 **momo-mruby** では mbed (GR-PEACH) 用にクロスコンパイルするために [mbed CLI](https://github.com/ARMmbed/mbed-cli) を使用します。  
 mbed CLIのセットアップ手順を以下に示します。
-
-## 必要なもの
 
 1. Python 2.7  
 mbed CLI を利用するためには Python 2.7 が必要です。(Python 3は利用できません)  
@@ -77,7 +138,7 @@ arm-none-eabi-gcc (GNU Tools for ARM Embedded Processors) 5.4.1 20160609
 - C:¥Program Files (x86)¥GNU Tools ARM Embedded¥5.4 2016q2¥bin  
 ※ 32bit版Windowsの場合は C:¥Program Files¥GNU Tools ARM Embedded¥5.4 2016q2¥bin
 
-### Mac/Linuxの場合  
+### Macの場合  
 ```
 $ export PATH=$PATH:$INSTALL_DIR/gcc-arm-none-eabi-5_4-2016q2/bin
 ```
@@ -92,7 +153,7 @@ $ pip install mbed-cli
 ```
 
 
-# ソースコードの取得とビルド
+## ソースコードの取得とビルド
 
 以下のコマンドを実行して、 **momo-mruby** のソースコードを取得します。
 ```
@@ -152,10 +213,12 @@ microSD装着後、GR-PEACHをUSB接続して電源投入すると、momo-mruby�
 momo-mruby書き込み後のGR-PEACHをmicroSDを抜いた状態でPCにUSB接続します。  
 ターミナルソフト(CoolTerm推奨)を起動して、GR-PEACHに接続します。
 
-### Windowsの場合
-COMx に割り当てられます。
+### Windowsの場合  
+シリアルポートドライバをインストールする必要があります。  
+[こちら](https://developer.mbed.org/handbook/Windows-serial-configuration)のページの**Download latest driver**のリンクからインストーラをダウンロードし、インストーラを実行して下さい。  
+シリアルポートドライバのインストール後に、GR-PEACHをPCに接続すると、COMx に割り当てられます。
 
-### Macの場合
+### Macの場合  
 usbmodemXXXX に割り当てられます。
 
 ターミナルソフトの設定は下記の通りです。
