@@ -30,7 +30,7 @@ mrubyをビルドするためには以下をセットアップする必要が�
 
 ### Windowsの場合
 Windows環境でのmrubyのビルドには、Microsoft Visual Studio(VC++)、MinGW(gcc)、Cygwin(gcc)等が利用可能ですが、ここでは[MinGW](http://www.mingw.org/)を使用する前提で説明していきます。  
-[MinGWのダウンロードサイト](https://sourceforge.net/projects/mingw/files/Installer/)から**mingw-get-setup.exe**をダウンロードして実行します。（インストール時の設定はデフォルトのままでOKです）  
+[MinGWのダウンロードサイト](https://sourceforge.net/projects/mingw/files/Installer/)から**mingw-get-setup.exe**をダウンロードして実行します。（インストール時の設定はデフォルトのままでOKです）
 
 **MinGW Installation Manager**の画面が表示されたら
 - mingw32-base
@@ -43,7 +43,7 @@ Windows環境でのmrubyのビルドには、Microsoft Visual Studio(VC++)、Min
 C:¥MinGW¥msys¥1.0¥msys.bat
 ```
 **注意**  
-以下、Windows環境でのコマンド実行は、このmsys.batを実行して表示されるコマンド画面から実行するものとします。
+以下、Windows環境でのコマンド実行は、このmsys.batを実行して表示されるコマンド画面から実行するものとします。
 
 
 ### Macの場合  
@@ -88,7 +88,7 @@ mbed CLIのセットアップ手順を以下に示します。
 1. Python 2.7  
 mbed CLI を利用するためには Python 2.7 が必要です。(Python 3は利用できません)  
 [Python 2.7](https://www.python.org/downloads/release/python-2712/) をセットアップしてください。  
-**※ momo-mruby上ではPythonは動作しません。**
+※ momo-mruby上ではPythonは動作しません。
 
 2. Git  
 [Git](https://git-scm.com/) 1.9.5 以降をインストールしてください。
@@ -224,6 +224,7 @@ usbmodemXXXX に割り当てられます。
 ターミナルソフトの設定は下記の通りです。
 
 **Serial Port**
+
 |設定項目|設定値|
 |:--|:-:|
 |Baudrate|9600|
@@ -232,6 +233,7 @@ usbmodemXXXX に割り当てられます。
 |Stop bits|1|
 
 **Terminal**
+
 |設定項目|設定値|
 |:--|:-:|
 |Terminal Mode|Line Mode|
