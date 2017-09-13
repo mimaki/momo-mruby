@@ -85,18 +85,18 @@ $ brew install bison
 **momo-mruby** では mbed (GR-PEACH) 用にクロスコンパイルするために [mbed CLI](https://github.com/ARMmbed/mbed-cli) を使用します。  
 mbed CLIのセットアップ手順を以下に示します。
 
-1. Python 2.7  
+### 1. Python 2.7  
 mbed CLI を利用するためには Python 2.7 が必要です。(Python 3は利用できません)  
 [Python 2.7](https://www.python.org/downloads/release/python-2712/) をセットアップしてください。  
 ※ momo-mruby上ではPythonは動作しません。
 
-2. Git  
+### 2. Git  
 [Git](https://git-scm.com/) 1.9.5 以降をインストールしてください。
 
-3. Mercurial
+### 3. Mercurial  
 [Mercurial](https://www.mercurial-scm.org/) 2.2.2 以降をインストールして下さい。
 
-4. GNU ARM Embedded Toolchain  
+### 4. GNU ARM Embedded Toolchain  
 [GNU ARM Embedded Toolchain 5.4](https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q2-update) をインストールしてください。
 
 以下のコマンドを実行し、上記それぞれにパスが通っていることを確認します。
@@ -131,14 +131,14 @@ arm-none-eabi-gcc (GNU Tools for ARM Embedded Processors) 5.4.1 20160609
 
 パスが通っていない場合はパスを追加して下さい。
 
-### Windowsの場合  
+#### Windowsの場合  
 システムのプロパティ - 詳細設定 - 環境変数から、環境変数 **PATH** に以下を追加します。
 - C:¥Python27
 - C:¥Program Files¥Git¥cmd
 - C:¥Program Files (x86)¥GNU Tools ARM Embedded¥5.4 2016q2¥bin  
 ※ 32bit版Windowsの場合は C:¥Program Files¥GNU Tools ARM Embedded¥5.4 2016q2¥bin
 
-### Macの場合  
+#### Macの場合  
 ```
 $ export PATH=$PATH:$INSTALL_DIR/gcc-arm-none-eabi-5_4-2016q2/bin
 ```
@@ -146,8 +146,8 @@ $ export PATH=$PATH:$INSTALL_DIR/gcc-arm-none-eabi-5_4-2016q2/bin
 ※ **$INSTALL_DIR**には、GNU ARM Toolchainsをインストールしたディレクトリを指定して下さい。
 
 
-5. mbed CLI  
-mbed CLIをインストールします。
+### 5. mbed CLI  
+上記1〜4のインストールが完了したら、mbed CLIをインストールします。
 ```
 $ pip install mbed-cli
 ```
@@ -183,7 +183,9 @@ git clone直後、make clean後、およびmrbgems追加／削除後の make で
 GR-PEACHをPCにUSB接続します。
 
 MBEDドライブがマウントされるので、以下のファイルをMBEDドライブにコピーします。  
+```
 ./BUILD/RZ\_A1H/GCC\_ARM/momo-mruby.bin
+```
 
 しばらくすると（数秒以上かかります）MBEDドライブが再度マウントされ、momo-mrubyが起動します。
 
