@@ -1,4 +1,5 @@
 #include "mbed.h"
+#include "BufferedSerial.h"
 #include "mbedapi.h"
 
 static const PinName _pins[] = {
@@ -114,7 +115,8 @@ MBEDAPI void*
 mbedSerialInit(int baud, int dbits, int start, int stop, int par)
 {
   SerialBase::Parity parity;
-  RawSerial *ser = new RawSerial(D1, D0, baud);
+  BufferedSerial *ser = new BufferedSerial(D1, D0, 1024);
+  ser->baud(baud);
   if (ser) {
     switch(par) {
       case MBED_SERIAL_PARITY_ODD:
@@ -136,7 +138,7 @@ mbedSerialInit(int baud, int dbits, int start, int stop, int par)
 MBEDAPI int
 mbedSerialRawRead(void *s)
 {
-  RawSerial *ser = (RawSerial*)s;
+  BufferedSerial *ser = (BufferedSerial*)s;
   if (ser->readable() == 0) {
     return -1;
   }
@@ -146,7 +148,7 @@ mbedSerialRawRead(void *s)
 MBEDAPI int
 mbedSerialRawWrite(void *s, int c)
 {
-  RawSerial *ser = (RawSerial*)s;
+  BufferedSerial *ser = (BufferedSerial*)s;
   int retry;
   for (retry=0; retry<1000; retry++) {
     if (ser->writeable()) break;
@@ -161,7 +163,7 @@ mbedSerialRawWrite(void *s, int c)
 MBEDAPI int
 mbedSerialAvailable(void *s)
 {
-  RawSerial *ser = (RawSerial*)s;
+  BufferedSerial *ser = (BufferedSerial*)s;
   return ser->readable();
 }
 
@@ -175,7 +177,7 @@ MBEDAPI void
 mbedSerialClose(void *ser)
 {
   if (ser) {
-    delete (RawSerial*)ser;
+    delete (BufferedSerial*)ser;
   }
 }
 

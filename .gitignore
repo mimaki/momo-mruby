@@ -9,6 +9,7 @@
 BUILD/
 mbed-os/
 SDFileSystem/
+BufferedSerial/
 .temp/
 
 # mruby
