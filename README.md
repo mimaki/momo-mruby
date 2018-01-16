@@ -129,11 +129,12 @@ arm-none-eabi-gcc (GNU Tools for ARM Embedded Processors) 5.4.1 20160609
 ...
 ```
 
-パスが通っていない場合はパスを追加して下さい。
+コマンド実行がうまくいかない（パスが通っていない）場合は、パスを追加して下さい。
 
 #### Windowsの場合  
 システムのプロパティ - 詳細設定 - 環境変数から、環境変数 **PATH** に以下を追加します。
 - C:¥Python27
+- C:¥Python27¥Scripts
 - C:¥Program Files¥Git¥cmd
 - C:¥Program Files (x86)¥GNU Tools ARM Embedded¥5.4 2016q2¥bin  
 ※ 32bit版Windowsの場合は C:¥Program Files¥GNU Tools ARM Embedded¥5.4 2016q2¥bin
