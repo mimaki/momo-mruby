@@ -10,6 +10,7 @@
 # LAN_GATEWAY=xxx.xxx.xxx.xxx
 
 CFGKEYS = [
+  'VCP_rate',
   'mirb',
   'mrdb',
   'STDOUT',
@@ -25,6 +26,7 @@ PRELOADFILE = '/sd/preload'
 
 def load_config
   cfg = {
+    :vcp_rate => 9600,
     :mirb => 1,
     :mrdb => 0,
     :stdout => 1,
@@ -58,12 +60,20 @@ end
 
 def input_01(prompt, cur)
   loop {
-    print "#{prompt} (#{cur}) => "
+    puts "#{prompt} (#{cur}) => "
     v = gets.chomp.strip
     return cur.to_i if v.size == 0
     return v.to_i if v =='0' or v == '1'
     return nil if v.downcase == 'q'
   }
+end
+
+def input_int(prompt, cur)
+  puts "#{prompt} (#{cur}) => "
+  v = gets.chomp.strip
+  return cur.to_i if v.size == 0
+  return nil if v.downcase == 'q'
+  return v.to_i
 end
 
 exit_menu = Proc.new {
@@ -78,6 +88,7 @@ exit_menu = Proc.new {
 app_config = Proc.new {
   puts "Application setting..."
   cfg = load_config
+  cfg[:vcp_rate] = input_int('VCP Baudrate', cfg[:vcp_rate])
   [
     [:mirb,     'Enable mirb'],
     [:mrdb,     'Enable mruby debugger'],

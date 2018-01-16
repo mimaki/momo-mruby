@@ -33,6 +33,7 @@ MBEDAPI void mbedStartTicker(void);
 MBEDAPI int mbedPrintf(const char*, ...);
 MBEDAPI void mbedPutc(char);
 MBEDAPI int mbedGetc(void);
+MBEDAPI void mbedSetVCPBaudrate(int);
 
 /* Serial(UART) */
 MBEDAPI void *mbedSerialInit(int, int, int, int, int);

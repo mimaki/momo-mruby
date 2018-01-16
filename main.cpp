@@ -30,6 +30,7 @@ typedef struct _Config {
   char ipaddr[16];    /* IP address */
   char subnet[16];    /* Subnet mask */
   char gateway[16];   /* Default gateway */
+  uint32_t vcp_rate;  /* Virtual COM Port Baudrate */
   uint8_t dhcp : 1;   /* Use DHCP */
   uint8_t mirb : 1;   /* Run interact mruby */
   uint8_t mrdb : 1;   /* Run mruby debugger */
@@ -126,7 +127,8 @@ configure(mrb_state *mrb, bool menu)
     "0.0.0.0",  // Default gateway
     1,          // DHCP
     1,          // mirb
-    0           // mrdb
+    0,          // mrdb
+    9600        // VCP Baudrate
   };
   mrb_value cfg;
 
@@ -134,9 +136,10 @@ configure(mrb_state *mrb, bool menu)
   mrb_load_irep(mrb, cfgmenu);
   cfg = mrb_gv_get(mrb, mrb_intern_lit(mrb, "$appcfg"));
 
-  config.mirb = get_fixnum(mrb, cfg, "mirb");
-  config.mrdb = get_fixnum(mrb, cfg, "mrdb");
-  config.dhcp = get_fixnum(mrb, cfg, "lan_dhcp");
+  config.mirb     = get_fixnum(mrb, cfg, "mirb");
+  config.mrdb     = get_fixnum(mrb, cfg, "mrdb");
+  config.dhcp     = get_fixnum(mrb, cfg, "lan_dhcp");
+  config.vcp_rate = get_fixnum(mrb, cfg, "vcp_rate");
   strcpy(config.ipaddr, get_string(mrb, cfg, "lan_ipaddr"));
   strcpy(config.subnet, get_string(mrb, cfg, "lan_subnet"));
   strcpy(config.gateway, get_string(mrb, cfg, "lan_gateway"));
@@ -162,6 +165,7 @@ int main(void)
       menu = true;
     }
     cfg = configure(mrb, menu);
+    mbedSetVCPBaudrate(cfg->vcp_rate);
     menu = 0;
     ledb = 0;
 

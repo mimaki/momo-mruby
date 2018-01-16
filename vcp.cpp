@@ -35,3 +35,9 @@ mbedGetc(void)
   }
   return vcp.getc();
 }
+
+MBEDAPI void
+mbedSetVCPBaudrate(int rate)
+{
+  vcp.baud(rate);
+}
