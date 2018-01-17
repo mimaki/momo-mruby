@@ -24,6 +24,8 @@ mruby/lib/
 mruby/mrbgems/mruby-bin-*/
 mruby/mrbgems/mruby-exit/
 mruby/mrbgems/mruby-test/
+mruby/mrbgems/mruby-io/
+mruby/mrbgems/mruby-socket/
 
 mruby/mrblib/
 # mruby/src/
