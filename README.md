@@ -185,7 +185,7 @@ GR-PEACHをPCにUSB接続します。
 
 MBEDドライブがマウントされるので、以下のファイルをMBEDドライブにコピーします。  
 ```
-./BUILD/RZ\_A1H/GCC\_ARM/momo-mruby.bin
+./BUILD/RZ_A1H/GCC_ARM/momo-mruby.bin
 ```
 
 しばらくすると（数秒以上かかります）MBEDドライブが再度マウントされ、momo-mrubyが起動します。
