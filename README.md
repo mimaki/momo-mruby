@@ -20,7 +20,7 @@ momo-mrubyは、mruby IoT フレームワーク「[Plato](http://plato.click)」
 
 ## mrubyビルド環境のセットアップ
 momo-mrubyでは、開発環境にmrubyのビルド環境を設定する必要があります。  
-mrubyをビルドするためには以下をセットアップする必要があります。
+mrubyをビルドするためには以下をセットアップする必要があります。
 
 - C言語開発環境 (gcc等)
 - Ruby
